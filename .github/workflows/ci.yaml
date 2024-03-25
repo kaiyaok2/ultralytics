@@ -194,6 +194,7 @@ jobs:
       - name: Pytest tests
         shell: bash # for Windows compatibility
         run: |
+          pip install pytest-cache
           slow=""
           if [[ "${{ github.event_name }}" == "schedule" ]] || [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
               # WARNING bug in ray>=2.10.0
