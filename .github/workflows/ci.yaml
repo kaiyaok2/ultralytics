@@ -203,7 +203,7 @@ jobs:
           pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests/test_integrations.py --rank --rank-weight=0-1-0 -o cache_dir=.abc
       - name: find
         run: |
-          ls -a tests/
+          ls -a
           pwd
           sudo find /home -type d -name ".pytest_cache"
       - name: Save pytest-ranking cache
