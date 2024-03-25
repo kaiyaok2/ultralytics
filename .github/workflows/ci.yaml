@@ -200,9 +200,11 @@ jobs:
               pip install mlflow pycocotools "ray[tune]<=2.9.3"
               slow="--slow"
           fi
-          pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests/test_integrations.py --rank --rank-weight=0-1-0 -o cache_dir=.pytest_cache
+          pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests/test_integrations.py --rank --rank-weight=0-1-0 -o cache_dir=.tmp
       - name: find
         run: |
+          ls -a
+          mv .tmp .pytest_cache
           ls -a
           pwd
           sudo find /home -type d -name ".pytest_cache"
