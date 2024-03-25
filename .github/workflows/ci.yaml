@@ -194,19 +194,18 @@ jobs:
       - name: Pytest tests
         shell: bash # for Windows compatibility
         run: |
-          pip install pytest-cache
           slow=""
           if [[ "${{ github.event_name }}" == "schedule" ]] || [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
               # WARNING bug in ray>=2.10.0
               pip install mlflow pycocotools "ray[tune]<=2.9.3"
               slow="--slow"
           fi
-          pytest -vv --durations=0 $slow tests/test_integrations.py --rank --rank-weight=0-1-0
+          pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests/test_integrations.py --rank --rank-weight=0-1-0 --cache-dir=.
       - name: find
         run: |
-          echo "${{ github.workspace }}"
+          ls -a
           pwd
-          find . -type d -name ".pytest_cache"
+          find /home -type d -name ".pytest_cache"
       - name: Save pytest-ranking cache
         id: save-pytest-ranking-cache
         if: always()
