@@ -31,7 +31,7 @@ def run(cmd):
 
 def test_special_modes():
     """Test various special command modes of YOLO."""
-    assert 0 == 1
+    assert 0 == 1 
     run("yolo help")
     run("yolo checks")
     run("yolo version")
