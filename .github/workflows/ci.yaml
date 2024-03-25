@@ -189,7 +189,7 @@ jobs:
         if: always()
         uses: actions/cache/restore@v4
         with:
-          path: ${{ github.workspace }}/.pytest_cache/v/pytest_ranking_data
+          path: ${{ github.workspace }}/.tmp/v/pytest_ranking_data
           key: pytest-ranking-cache-${{ runner.os }}-${{ matrix.python }}
       - name: Pytest tests
         shell: bash # for Windows compatibility
@@ -202,15 +202,12 @@ jobs:
           fi
           ls -a
           pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests --rank --rank-weight=0-1-0 -o cache_dir=.tmp
-      - name: workaround to auto-deleted cache dir
-        run: |
-          mv .tmp .pytest_cache
       - name: Save pytest-ranking cache
         id: save-pytest-ranking-cache
         if: always()
         uses: actions/cache/save@v4
         with:
-          path: ${{ github.workspace }}/.pytest_cache/v/pytest_ranking_data
+          path: ${{ github.workspace }}/.tmp/v/pytest_ranking_data
           key: pytest-ranking-cache-${{ runner.os }}-${{ matrix.python }}-${{ github.run_id }}
       - name: Upload Coverage Reports to CodeCov
         if: github.repository == 'ultralytics/ultralytics' # && matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
