@@ -201,6 +201,12 @@ jobs:
               slow="--slow"
           fi
           pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests/ --rank --rank-weight=0-1-0
+      - name: find
+        run: |
+          ls ${{ github.workspace }}
+          ls .pytest_cache
+          ls ${{ github.workspace }}.pytest_cache
+          ls tests/
       - name: Save pytest-ranking cache
         id: save-pytest-ranking-cache
         if: always()
