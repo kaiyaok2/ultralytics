@@ -200,7 +200,7 @@ jobs:
               pip install mlflow pycocotools "ray[tune]<=2.9.3"
               slow="--slow"
           fi
-          ls -a
+          ls -a 
           pytest -vv --durations=0 $slow --cov=ultralytics/ --cov-report xml tests --rank --rank-weight=0-1-0 -o cache_dir=.tmp
       - name: Save pytest-ranking cache
         id: save-pytest-ranking-cache
